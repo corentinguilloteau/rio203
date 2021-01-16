@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 import Sidebar from './components/Sidebar';
+import InformationCard from './components/InformationCard';
 import reportWebVitals from './reportWebVitals';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
@@ -32,6 +33,19 @@ class Main extends React.Component
                       <i className="fas fa-fw fa-bars hamburger" onClick={this.handleSidebarToggle}></i>
                     </div>
                   </nav>
+                  <div className="content">
+                    <div className="container-fluid">
+                      <div className="row mb-2 mb-xl-3">
+                        <div className="col-auto d-none d-sm-block">
+                          <h3>{this.props.title}</h3>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <InformationCard name="Temperature chambre" value="18°C" icon="thermometer-three-quarters" color="green"/>
+                        <InformationCard name="Lumière salon" value="Allumée" icon="lightbulb" color="yellow"/>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </React.StrictMode>
         );
@@ -39,7 +53,7 @@ class Main extends React.Component
 }
 
 ReactDOM.render(
-  <Main />,
+  <Main title="Dashboard" />,
   document.getElementById('wrapper')
 );
 
