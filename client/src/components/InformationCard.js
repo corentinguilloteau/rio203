@@ -1,5 +1,5 @@
 import React from "react";
-import '../css/InformationCard.css';
+import '../css/Card.css';
 
 class InformationCard extends React.Component {
     constructor(props) {
@@ -11,7 +11,7 @@ class InformationCard extends React.Component {
     render() {
       return (
             <div name={this.props.name}  className="col-12 col-sm-6 col-xxl-3 d-flex">
-                <div className="card">
+                <div className="card clickable">
                     <a className="no-link" href={"/sensor/" + this.props.sensorId}>
                         <div className="card-body py-4">
                             <div className="media">                              

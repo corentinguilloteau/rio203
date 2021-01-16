@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './css/index.css';
 import Sidebar from './components/Sidebar';
 import InformationCard from './components/InformationCard';
+import TimeSerieCard from './components/TimeSerieCard';
 import reportWebVitals from './reportWebVitals';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
@@ -44,6 +45,34 @@ class Main extends React.Component
                         <InformationCard name="Temperature chambre" value="18°C" icon="thermometer-three-quarters" color="green"/>
                         <InformationCard name="Lumière salon" value="Allumée" icon="lightbulb" color="yellow"/>
                       </div>
+                      <div className="row">
+                        <TimeSerieCard name="Lumière salon" />
+                      </div>
+                      <div className="row">
+                        <TimeSerieCard name="Lumière salon" />
+                      </div>
+                      <div className="row">
+                        <TimeSerieCard name="Lumière salon" />
+                      </div>
+                      <div className="row">
+                        <TimeSerieCard name="Lumière salon" />
+                      </div>
+                      <div className="row">
+                        <TimeSerieCard name="Lumière salon" />
+                      </div>
+                      <div className="row">
+                        <TimeSerieCard name="Lumière salon" />
+                      </div>
+                      <div className="row">
+                        <TimeSerieCard name="Lumière salon" />
+                      </div>
+                      <div className="row">
+                        <TimeSerieCard name="Lumière salon" />
+                      </div>
+                      <div className="row">
+                        <TimeSerieCard name="Lumière salon" />
+                      </div>
+                      
                     </div>
                   </div>
                 </div>

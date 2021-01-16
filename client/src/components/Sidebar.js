@@ -14,7 +14,7 @@ class Sidebar extends React.Component {
 
     render() {
       return (
-        <div id="sidebar" className={'sidebar ' + (this.props.collapsed ? 'collapsed' : '')} >
+        <nav id="sidebar" className={'sidebar ' + (this.props.collapsed ? 'collapsed' : '')} >
             <SimpleBar style={{ maxHeight: 300 }}>
                 <div className="sidebar-top"></div>
                 <ul className="sidebar-nav">
@@ -30,7 +30,7 @@ class Sidebar extends React.Component {
                     }
                 </ul>
             </SimpleBar>
-        </div>
+        </nav>
       );
     }
   }

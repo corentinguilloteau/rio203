@@ -23,11 +23,36 @@
   transition: all 0.25s ease-in-out;
 }
 
-.card:hover {
+.card.clickable:hover {
   -webkit-box-shadow: 0 1rem 2rem #0000001a !important;
           box-shadow: 0 1rem 2rem #0000001a !important;
   -webkit-transform: translate3D(0, -1px, 0) scale(1.02);
           transform: translate3D(0, -1px, 0) scale(1.02);
+}
+
+.card .card-header {
+  border-bottom-width: 1px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0;
+  background-color: #fff;
+  border-bottom: 0 solid transparent;
+}
+
+.card .card-header .card-title {
+  font-size: .95rem;
+  font-weight: 500;
+  color: #495057;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.chart {
+  margin: auto;
+  position: relative;
+  width: 100%;
+  min-height: 400px;
 }
 
 .no-link {
@@ -94,4 +119,4 @@
   width: 24px;
   height: 24px;
 }
-/*# sourceMappingURL=InformationCard.css.map */
+/*# sourceMappingURL=Card.css.map */
