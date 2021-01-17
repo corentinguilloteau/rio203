@@ -1,5 +1,6 @@
 import React from "react";
 import '../css/Card.css';
+import { Link } from 'react-router-dom';
 
 class InformationCard extends React.Component {
     constructor(props) {
@@ -12,7 +13,7 @@ class InformationCard extends React.Component {
       return (
             <div name={this.props.name}  className="col-12 col-sm-6 col-xxl-3 d-flex">
                 <div className="card clickable">
-                    <a className="no-link" href={"/sensor/" + this.props.sensorId}>
+                    <Link className="no-link" to={"/" + this.props.type + "/" + this.props.id}>
                         <div className="card-body py-4">
                             <div className="media">                              
                                 <div className="media-body">
@@ -20,13 +21,13 @@ class InformationCard extends React.Component {
                                     <p className="mb-2">{this.props.name}</p>
                                 </div>
                                 <div className="icon-block ml-3">
-                                    <div className={"round " + (this.props.color)}>
+                                    <div className={"round d-flex align-items-center justify-content-center " + (this.props.color)}>
                                         <i className={"fas fa-fw fa-" + (this.props.icon)}></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </Link>
                 </div>
             </div>
       );

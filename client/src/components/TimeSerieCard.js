@@ -52,12 +52,12 @@ class TimeSerieCard extends React.Component {
 
     render() {
       return (
-            <div name={this.props.name}  className="fill-flex d-flex">
+            <div name={this.props.name}  className="col d-flex">
                 <div className="card">
                     <div className="card-header">
-                        <h5 className="car-title mb-0">{this.props.name}</h5>
+                        <h5 className="car-title mt-2">{this.props.name}</h5>
                     </div>
-                    <div className="card-body py-4">
+                    <div className="card-body py-2">
                         <div className="chart w-100">
                         <Chart
                             className="plot" options={this.state.options}

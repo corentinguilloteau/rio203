@@ -2,9 +2,18 @@ import React from "react";
 import '../css/Sidebar.css';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
+import { Link } from 'react-router-dom';
+import PropTypes from "prop-types";
+import { withRouter } from "react-router";
 
 
 class Sidebar extends React.Component {
+    static propTypes = {
+        match: PropTypes.object.isRequired,
+        location: PropTypes.object.isRequired,
+        history: PropTypes.object.isRequired
+      }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -20,11 +29,11 @@ class Sidebar extends React.Component {
                 <ul className="sidebar-nav">
                     {
                         this.props.items.map((item) =>
-                            <li key={item.id} className={"sidebar-item " + ((item.id === this.state.activeItemId) ? 'active' : '') }>
-                                <a href={item.link} className="sidebar-link">
+                            <li key={item.id} className={"sidebar-item " + ((item.link === this.props.location.pathname) ? 'active' : '') }>
+                                <Link to={item.link} className="sidebar-link">
                                     <i className={"fas fa-fw fa-" + item.icon}></i>
                                     <span className="align-middle">{item.name}</span>
-                                </a>
+                                </Link>
                             </li>
                         )
                     }
@@ -35,4 +44,4 @@ class Sidebar extends React.Component {
     }
   }
 
-export default Sidebar;
+export default withRouter(Sidebar);

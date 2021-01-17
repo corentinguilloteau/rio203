@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
+import App from './components/App'
 import Sidebar from './components/Sidebar';
-import InformationCard from './components/InformationCard';
-import TimeSerieCard from './components/TimeSerieCard';
 import reportWebVitals from './reportWebVitals';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { BrowserRouter } from 'react-router-dom'
 
 class Main extends React.Component
 {
@@ -26,57 +26,19 @@ class Main extends React.Component
 
     render() {
       const isSidebarCollapsed = this.state.isSidebarCollapsed;
-      return (<React.StrictMode>
-                <Sidebar collapsed={isSidebarCollapsed} items={[{id: 0, name: 'Dashboard', icon: 'home', link: '/'}, {id: 1, name: 'Consomation', icon: 'bolt', link: '/power'}]} activeItemId={0} />
-                <div className="main">
-                  <nav className="navbar">
-                    <div className="sidebar-toggle">
-                      <i className="fas fa-fw fa-bars hamburger" onClick={this.handleSidebarToggle}></i>
-                    </div>
-                  </nav>
-                  <div className="content">
-                    <div className="container-fluid">
-                      <div className="row mb-2 mb-xl-3">
-                        <div className="col-auto d-none d-sm-block">
-                          <h3>{this.props.title}</h3>
-                        </div>
+      return (<BrowserRouter>
+                <React.StrictMode>
+                  <Sidebar collapsed={isSidebarCollapsed} items={[{id: 0, name: 'Dashboard', icon: 'home', link: '/'}, {id: 1, name: 'Consomation', icon: 'bolt', link: '/power'}, {id: 2, name: 'Pièces', icon: 'home', link: '/rooms'}, {id: 3, name: 'Capteurs', icon: 'microchip', link: '/sensors'}]} activeItemId={0} />
+                  <div className="main">
+                    <nav className="navbar">
+                      <div className="sidebar-toggle">
+                        <i className="fas fa-fw fa-bars hamburger" onClick={this.handleSidebarToggle}></i>
                       </div>
-                      <div className="row">
-                        <InformationCard name="Temperature chambre" value="18°C" icon="thermometer-three-quarters" color="green"/>
-                        <InformationCard name="Lumière salon" value="Allumée" icon="lightbulb" color="yellow"/>
-                      </div>
-                      <div className="row">
-                        <TimeSerieCard name="Lumière salon" />
-                      </div>
-                      <div className="row">
-                        <TimeSerieCard name="Lumière salon" />
-                      </div>
-                      <div className="row">
-                        <TimeSerieCard name="Lumière salon" />
-                      </div>
-                      <div className="row">
-                        <TimeSerieCard name="Lumière salon" />
-                      </div>
-                      <div className="row">
-                        <TimeSerieCard name="Lumière salon" />
-                      </div>
-                      <div className="row">
-                        <TimeSerieCard name="Lumière salon" />
-                      </div>
-                      <div className="row">
-                        <TimeSerieCard name="Lumière salon" />
-                      </div>
-                      <div className="row">
-                        <TimeSerieCard name="Lumière salon" />
-                      </div>
-                      <div className="row">
-                        <TimeSerieCard name="Lumière salon" />
-                      </div>
-                      
-                    </div>
+                    </nav>
+                    <App />
                   </div>
-                </div>
-              </React.StrictMode>
+                </React.StrictMode>
+              </BrowserRouter>
         );
     }
 }

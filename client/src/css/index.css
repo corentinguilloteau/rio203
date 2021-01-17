@@ -28,7 +28,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h3 {
-  font-size: 1.2375rem;
+  font-size: 1.3rem;
+}
+
+h5 {
+  font-size: .95rem;
+  font-weight: 600;
 }
 
 #wrapper {
@@ -58,7 +63,7 @@ h3 {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  overflow-y: scroll;
+  overflow: scroll;
 }
 
 @media (max-width: 991.98px) {
