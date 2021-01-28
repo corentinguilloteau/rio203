@@ -6,7 +6,6 @@ import Sidebar from './components/Sidebar';
 import reportWebVitals from './reportWebVitals';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { BrowserRouter } from 'react-router-dom'
-
 class Main extends React.Component
 {
     constructor(props)

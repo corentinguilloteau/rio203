@@ -32,25 +32,24 @@ class TimeSerieCard extends React.Component {
                     }
             },
             series: [{
-                name: 'XYZ MOTORS',
-                data: [[
-                    1,  20000000
-                
-                  ],
-                  [
-                    2,  10379978
-                ],
-                [
-                     3,  30493749
-                ],
-                [
-                     4,  10785250
-                ]]
+                name: this.props.seriename,
+                data: this.props.data
             }]
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+      // You don't have to do this check first, but it can help prevent an unneeded render
+      if (nextProps.data !== this.state.series[0].data) {
+        this.setState({ series:  [{
+          name: this.props.seriename,
+          data: nextProps.data 
+      }] });
+      }
+    }
+
     render() {
+      console.log(this.state.series)
       return (
             <div name={this.props.name}  className="col d-flex">
                 <div className="card">

@@ -1,12 +1,45 @@
 import React from "react";
 import TableCard from './TableCard';
 import '../css/App.css';
+import { baseURL } from './globals';
 
 class Rooms extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+          isLoaded: false,
+          items: []
         };
+    }
+
+    componentDidMount() {
+      console.log(this.context)
+      fetch(this.context + "/rooms/", {headers : 
+        { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }
+      })
+        .then((res) => {return res.json()})
+        .then(
+          (result) => {
+            console.log(result)
+            this.setState({
+              isLoaded: true,
+              items: result
+            });
+          },
+          // Note: it's important to handle errors here
+          // instead of a catch() block so that we don't swallow
+          // exceptions from actual bugs in components.
+          (error) => {
+            this.setState({
+              isLoaded: true,
+              error
+            });
+            console.log(error);
+          }
+        )
     }
 
     render() {
@@ -18,11 +51,13 @@ class Rooms extends React.Component {
                 </div>
             </div>
             <div className="row">
-                <TableCard name="Rooms List" />
+                <TableCard name="Rooms List" items={this.state.items} baseUrl='/rooms/'/>
             </div> 
         </div>
       );
     }
   }
+
+  Rooms.contextType = baseURL;
 
 export default Rooms;
