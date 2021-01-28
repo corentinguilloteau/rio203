@@ -1,11 +1,18 @@
 var express = require('express');
 var router = express.Router();
-const pool = require('../mysql').getPool();
+const pool = require('../db').getPool();
+const {ObjectId} = require('mongodb');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    pool.query("SELECT timestamp, SUM(value) AS value FROM power GROUP BY timestamp", function(err, quer)
-    {
+    req.db.collection('power').aggregate([{
+        $group:
+        {
+            _id: "$timestamp",
+            value: { $sum: "$value" }
+        }
+    }])
+    .toArray(function(err, quer) {
         if(err)
         {
             res.status(500)
@@ -20,7 +27,12 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-    pool.query("SELECT t.value AS power FROM power AS t INNER JOIN (SELECT device, MAX(timestamp) AS timestamp FROM power GROUP BY device) AS tm ON t.device = tm.device AND t.timestamp = tm.timestamp", function(err, quer)
+    req.db.collection('power').aggregate(
+    [
+        { $match: { device: ObjectId(req.params.id) }},
+        { $sort: { timestamp: -1 }},
+        { $project: { power: "$value" } }])
+    .toArray(function(err, quer)
     {
         if(err)
         {
@@ -29,6 +41,8 @@ router.get('/:id', function(req, res, next) {
             console.log(err)
             return
         }
+
+        console.log(quer)
 
         res.status(200)
         res.end(JSON.stringify(quer))

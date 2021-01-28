@@ -4,13 +4,32 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var url = 'mongodb://dashboard:dashboard@10.189.164.34:27017/rio';
+
 var app = express();
 
 app.use(cors());
+
+app.use(function(req, res, next)
+{
+  MongoClient.connect(url, { 
+    auth: {
+      authdb: 'rio'		
+    }, 
+    useNewUrlParser: true 
+  },
+  function(err, client) {  
+    assert.equal(null, err);
+    req.db = client.db("rio");
+    next();
+  });
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,7 +61,7 @@ app.use(function(req, res, next) {
 
 
 // error handler
-app.use(function(err, req, res, next) {
+/*app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -50,7 +69,7 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
+});*/
 
 app.listen(process.env.PORT || 8080, () => console.log('server listening on port 5000'));
 

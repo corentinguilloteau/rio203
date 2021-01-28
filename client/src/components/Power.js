@@ -62,8 +62,8 @@ class Power extends React.Component {
 
                 result.forEach(sensor =>
                 {
-                    var id = sensor.id;
-                    fetch(this.context + "/power/" + id, {headers : 
+                    var _id = sensor._id;
+                    fetch(this.context + "/power/" + _id, {headers : 
                         { 
                           'Content-Type': 'application/json',
                           'Accept': 'application/json'
@@ -72,9 +72,10 @@ class Power extends React.Component {
                         .then((res) => {return res.json()})
                         .then(
                           (result) => {
+                            console.log(result)
                             this.setState(prevState => {
                                 let devicePower = Object.assign([], prevState.devicePower);
-                                devicePower[id] = {id: id, name: sensor.name, power: result[0].power}
+                                devicePower[_id] = {id: _id, name: sensor.name, power: result[0].power}
                                 return {devicePower}
                               });
                           },
@@ -110,7 +111,7 @@ class Power extends React.Component {
       }
 
     render() {
-        console.log(this.state.devicePower)
+        console.log(this.state.powerData)
       return (
         <div className="container-fluid">
             <div className="row mb-2 mb-xl-3">
@@ -119,11 +120,11 @@ class Power extends React.Component {
                 </div>
             </div>
             <div className="row">
-                <TimeSerieCard name="Puissance totale consommée" seriename="Power" data={this.state.powerData}/>
+                <TimeSerieCard name="Puissance totale consommée" seriename="Power" data={Object.values(this.state.powerData)}/>
             </div>
             <div className="row">
                 {
-                    this.state.devicePower.map((data) => 
+                    Object.values(this.state.devicePower).map((data) => 
                         <InformationCard key={data.id} name={data.name} value={data.power + "W"} icon="bolt" color="yellow" type="simpactuat" />
                     )
                 }  

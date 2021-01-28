@@ -1,10 +1,17 @@
 var express = require('express');
 var router = express.Router();
-const pool = require('../mysql').getPool();
+const pool = require('../db').getPool;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    pool.query("SELECT iddevice AS id, device.name, gcid, rooms.name AS room FROM device JOIN rooms ON room = idrooms", function(err, quer)
+    req.db.collection('devices').aggregate([{
+        $lookup:{
+            from: "rooms",
+            localField: "room",
+            foreignField: "_id",
+            as: "room"
+        }
+    }]).toArray(function(err, quer)
     {
         if(err)
         {
