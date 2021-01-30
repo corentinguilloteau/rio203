@@ -19,8 +19,8 @@ class Dashboard extends React.Component {
                 </div>
             </div>
             <div className="row">
-                <InformationCard name="Temperature chambre" value="18°C" icon="thermometer-three-quarters" color="green" type="sensor" id="1"/>
-                <InformationCard name="Lumière salon" value="Allumée" icon="lightbulb" color="yellow" type="sensor" id="2"/>
+                {/*§<InformationCard name="Temperature chambre" value="18°C" icon="thermometer-three-quarters" color="green" type="sensor" id="1"/>
+                <InformationCard name="Lumière salon" value="Allumée" icon="lightbulb" color="yellow" type="sensor" id="2"/>*/}
             </div>          
         </div>
       );

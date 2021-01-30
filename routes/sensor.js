@@ -12,10 +12,9 @@ router.get('/:sid', function(req, res, next) {
         { $project: { type: "$sensors.type", localSensorID: "$sensors.id", state: "$sensors.state"}},
         { $match: { localSensorID: parseInt(req.params.sid) }},
         { $lookup: { from: "sensor_type", localField: "type", foreignField: "alias", as: "sensor"} },
-        { $project: { type: "$type", "_id": "$localSensorID", name: "$sensor.name", data: "$sensor.datas", command: "$sensor.command" }},
+        { $project: { type: "$type", "_id": "$localSensorID", state: '$state', stateType: '$sensor.state', name: "$sensor.name", data: "$sensor.datas", command: "$sensor.command" }},
         { $unwind: "$name" },
         { $unwind: "$data" },
-        { $unwind: "$state" },
         { $unwind: "$command" }
     ])
     .toArray(function(err, quer)
