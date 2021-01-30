@@ -6,6 +6,7 @@ class TimeSerieCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            data: [],
             options: {
                 chart: {
                     type: 'area',
@@ -23,33 +24,56 @@ class TimeSerieCard extends React.Component {
                   },
                   yaxis: {
                     title: {
-                      text: 'Price'
+                      text: this.props.params.yName
                     },
                     type: 'numeric'
                   },
-                    xaxis: {
-                        type: 'numeric'
-                    }
+                  xaxis: {
+                    title: {
+                      text: this.props.params.xName
+                    },
+                    type: 'datetime'
+                  },
+                  dataLabels:{
+                    enabled: false
+                  },
+                  markers: {
+                    size: 0
+                  }
             },
-            series: [{
-                name: this.props.seriename,
-                data: this.props.data
-            }]
+            data: [] 
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-      // You don't have to do this check first, but it can help prevent an unneeded render
-      if (nextProps.data !== this.state.series[0].data) {
-        this.setState({ series:  [{
-          name: this.props.seriename,
-          data: nextProps.data 
-      }] });
-      }
+    componentDidMount()
+    {
+      fetch(this.props.baseURL + this.props.valuekey, {headers : 
+        { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }
+      })
+        .then((res) => {return res.json()})
+        .then(
+          (result) => {
+            this.setState({
+              data: result.map(Object.values)
+            });
+          },
+          // Note: it's important to handle errors here
+          // instead of a catch() block so that we don't swallow
+          // exceptions from actual bugs in components.
+          (error) => {
+            this.setState({
+              isLoaded: true,
+              error
+            });
+            console.log(error);
+          }
+        )
     }
 
     render() {
-      console.log(this.state.series)
       return (
             <div name={this.props.name}  className="col d-flex">
                 <div className="card">
@@ -60,7 +84,10 @@ class TimeSerieCard extends React.Component {
                         <div className="chart w-100">
                         <Chart
                             className="plot" options={this.state.options}
-                            series={this.state.series}
+                            series={[{
+                              name: this.props.params.serieName,
+                              data: this.state.data
+                            }]}
                             type="area"
                             height="100%"
                         />

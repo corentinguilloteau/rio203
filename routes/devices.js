@@ -29,4 +29,5 @@ router.get('/', function(req, res, next) {
 
 router.use('/', routerDevice);
 
+
 module.exports = router;

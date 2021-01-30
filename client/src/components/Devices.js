@@ -35,7 +35,7 @@ class Devices extends React.Component {
           (error) => {
             this.setState({
               isLoaded: true,
-              error
+              items: []
             });
             console.log(error);
           }

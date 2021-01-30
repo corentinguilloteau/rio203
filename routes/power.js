@@ -21,6 +21,7 @@ router.get('/', function(req, res, next) {
             return
         }
 
+        console.log(quer)
         res.status(200)
         res.end(JSON.stringify(quer))
     });

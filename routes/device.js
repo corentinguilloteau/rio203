@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 const {ObjectId} = require('mongodb');
 
+var routerSensor = require('./sensor');
+
+router.use('/:id/sensors/', routerSensor);
+
 /* GET users listing. */
 router.get('/:id/sensors', function(req, res, next) {
     req.db.collection('devices').aggregate(
@@ -16,8 +20,6 @@ router.get('/:id/sensors', function(req, res, next) {
     ])
     .toArray(function(err, quer)
     {   
-        console.log(quer)
-
         if(err)
         {
             res.status(500)
@@ -35,7 +37,6 @@ router.get('/:id', function(req, res, next) {
     req.db.collection('devices').find({"_id": ObjectId(req.params.id)})
     .toArray(function(err, quer)
     {   
-        console.log(quer)
 
         if(err || quer.length !== 1)
         {
@@ -49,6 +50,5 @@ router.get('/:id', function(req, res, next) {
         res.end(JSON.stringify(quer[0]))
     });
 });
-
 
 module.exports = router;

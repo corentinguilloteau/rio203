@@ -13,41 +13,6 @@ class Power extends React.Component {
         };
     }
 
-    updateTotalPower()
-    {
-        fetch(this.context + "/power/", {headers : 
-            { 
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-             }
-          })
-            .then((res) => {return res.json()})
-            .then(
-              (result) => {
-                console.log(result)
-                  var nData = []
-                  result.forEach(el => {
-                      nData.push(Object.values(el))
-                  })
-                  console.log(nData)
-                this.setState({
-                  isLoaded: true,
-                  powerData: nData
-                });
-              },
-              // Note: it's important to handle errors here
-              // instead of a catch() block so that we don't swallow
-              // exceptions from actual bugs in components.
-              (error) => {
-                this.setState({
-                  isLoaded: true,
-                  error
-                });
-                console.log(error);
-              }
-            )
-    }
-
     updateDevicesPower()
     {
         fetch(this.context + "/devices/", {headers : 
@@ -106,7 +71,6 @@ class Power extends React.Component {
     }
 
     componentDidMount() {
-        this.updateTotalPower();
         this.updateDevicesPower();
       }
 
@@ -120,7 +84,7 @@ class Power extends React.Component {
                 </div>
             </div>
             <div className="row">
-                <TimeSerieCard name="Puissance totale consommée" seriename="Power" data={Object.values(this.state.powerData)}/>
+                <TimeSerieCard name="Puissance totale consommée" seriename="Power" valuekey={"power"} params={{serieName: "Puissance", yName: "Puissance (en W)"}} baseURL={this.context + "/"}/>
             </div>
             <div className="row">
                 {
