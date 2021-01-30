@@ -50,7 +50,7 @@ class Power extends React.Component {
 
     updateDevicesPower()
     {
-        fetch(this.context + "/sensors/", {headers : 
+        fetch(this.context + "/devices/", {headers : 
             { 
               'Content-Type': 'application/json',
               'Accept': 'application/json'

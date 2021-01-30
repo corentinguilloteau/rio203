@@ -47,8 +47,8 @@ app.use('/users', usersRouter);
 var routerRooms = require('./routes/rooms');
 app.use('/rooms', routerRooms)
 
-var routerSensors = require('./routes/sensors');
-app.use('/sensors', routerSensors)
+var routerDevices = require('./routes/devices');
+app.use('/devices', routerDevices)
 
 var routerPower = require('./routes/power');
 app.use('/power', routerPower)

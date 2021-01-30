@@ -3,7 +3,7 @@ import TableCard from './TableCard';
 import '../css/App.css';
 import { baseURL } from './globals';
 
-class Sensors extends React.Component {
+class Devices extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,7 +14,7 @@ class Sensors extends React.Component {
 
     componentDidMount() {
       console.log(this.context)
-      fetch(this.context + "/sensors/", {headers : 
+      fetch(this.context + "/devices/", {headers : 
         { 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -47,17 +47,17 @@ class Sensors extends React.Component {
         <div className="container-fluid">
             <div className="row mb-2 mb-xl-3">
                 <div className="col-auto d-none d-sm-block">
-                    <h3>{'Sensors'}</h3>
+                    <h3>{'Appareils'}</h3>
                 </div>
             </div>
             <div className="row">
-                <TableCard name="Sensors List" items={this.state.items} baseUrl='/sensors/'/>
+                <TableCard name="Listes des appareils" items={this.state.items} baseUrl='/devices/'/>
             </div> 
         </div>
       );
     }
   }
 
-  Sensors.contextType = baseURL;
+  Devices.contextType = baseURL;
 
-export default Sensors;
+export default Devices;

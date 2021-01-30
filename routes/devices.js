@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const pool = require('../db').getPool;
+
+var routerDevice = require('./device');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -25,5 +26,7 @@ router.get('/', function(req, res, next) {
         res.end(JSON.stringify(quer))
     });
 });
+
+router.use('/', routerDevice);
 
 module.exports = router;

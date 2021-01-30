@@ -5,7 +5,8 @@ import Room from './Room'
 import Power from './Power'
 import React from "react";
 import Rooms from './Rooms'
-import Sensors from './Sensors'
+import Device from './Device'
+import Devices from './Devices'
 import { Switch, Route } from 'react-router-dom';
 
 class App extends React.Component {
@@ -21,10 +22,11 @@ class App extends React.Component {
             <Switch>
               <Route exact path='/' component={Dashboard} />
               <Route path='/power' component={Power} />
-              <Route exact path='/sensors' component={Sensors} />
-              <Route path='/rooms' component={Rooms} />
+              <Route exact path='/rooms' component={Rooms} />
               <Route path='/room/:id' component={Room} />
-              <Route path='/sensor/:id' component={Sensor} />
+              <Route exact path='/devices' component={Devices} />
+              <Route exact path='/devices/:id' component={Device} />
+              <Route path='/devices/:id/sensors/:sid' component={Sensor} />
             </Switch>
           </div>
       );
