@@ -88,7 +88,7 @@ class Power extends React.Component {
             <div className="row">
                 {
                     Object.values(this.state.devicePower).map((data) => 
-                        <InformationCard key={data.id} name={data.name} value={data.power + "W"} icon="bolt" color="yellow" type="simpactuat" />
+                        <InformationCard key={data.id} name={data.name} value={data.power + "W"} icon="bolt" color="yellow" url={"/devices/" + data.id} />
                     )
                 }  
             </div>      

@@ -13,7 +13,7 @@ class InformationCard extends React.Component {
       return (
             <div name={this.props.name}  className="col-12 col-sm-6 col-xxl-3 d-flex">
                 <div className="card clickable">
-                    <Link className="no-link" to={"/" + this.props.type + "/" + this.props.id}>
+                    <Link className="no-link" to={this.props.url}>
                         <div className="card-body py-4">
                             <div className="media">                              
                                 <div className="media-body">

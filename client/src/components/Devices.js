@@ -12,7 +12,7 @@ class Devices extends React.Component {
     }
 
     componentDidMount() {
-      fetch("/devices/", {headers : 
+      fetch("/api/devices/", {headers : 
         { 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
