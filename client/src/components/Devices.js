@@ -1,7 +1,6 @@
 import React from "react";
 import TableCard from './TableCard';
 import '../css/App.css';
-import { baseURL } from './globals';
 
 class Devices extends React.Component {
     constructor(props) {
@@ -13,8 +12,7 @@ class Devices extends React.Component {
     }
 
     componentDidMount() {
-      console.log(this.context)
-      fetch(this.context + "/devices/", {headers : 
+      fetch("/devices/", {headers : 
         { 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -57,7 +55,5 @@ class Devices extends React.Component {
       );
     }
   }
-
-  Devices.contextType = baseURL;
 
 export default Devices;

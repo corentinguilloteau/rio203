@@ -1,7 +1,6 @@
 import React from "react";
 import TableCard from './TableCard';
 import '../css/App.css';
-import { baseURL } from './globals';
 
 class Rooms extends React.Component {
     constructor(props) {
@@ -14,7 +13,7 @@ class Rooms extends React.Component {
 
     componentDidMount() {
       console.log(this.context)
-      fetch(this.context + "/rooms/", {headers : 
+      fetch("/rooms/", {headers : 
         { 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -57,7 +56,5 @@ class Rooms extends React.Component {
       );
     }
   }
-
-  Rooms.contextType = baseURL;
 
 export default Rooms;

@@ -1,7 +1,6 @@
 import React from "react";
 import TableCard from './TableCard';
 import '../css/App.css';
-import { baseURL } from './globals';
 
 class Device extends React.Component {
     constructor(props) {
@@ -14,7 +13,7 @@ class Device extends React.Component {
     }
 
     getSensors() {
-      fetch(this.context + "/devices/" + this.props.match.params.id + '/sensors', {headers : 
+      fetch("/devices/" + this.props.match.params.id + '/sensors', {headers : 
         { 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -43,7 +42,7 @@ class Device extends React.Component {
 
     getDevice()
     {
-        fetch(this.context + "/devices/" + this.props.match.params.id, {headers : 
+        fetch("/devices/" + this.props.match.params.id, {headers : 
             { 
               'Content-Type': 'application/json',
               'Accept': 'application/json'
@@ -91,7 +90,5 @@ class Device extends React.Component {
       );
     }
   }
-
-  Device.contextType = baseURL;
 
 export default Device;

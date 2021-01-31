@@ -2,7 +2,6 @@ import React from "react";
 import TimeSerieCard from './TimeSerieCard';
 import InformationCard from './InformationCard';
 import '../css/App.css';
-import { baseURL } from './globals';
 
 class Power extends React.Component {
     constructor(props) {
@@ -15,7 +14,7 @@ class Power extends React.Component {
 
     updateDevicesPower()
     {
-        fetch(this.context + "/devices/", {headers : 
+        fetch("/devices/", {headers : 
             { 
               'Content-Type': 'application/json',
               'Accept': 'application/json'
@@ -28,7 +27,7 @@ class Power extends React.Component {
                 result.forEach(sensor =>
                 {
                     var _id = sensor._id;
-                    fetch(this.context + "/power/" + _id, {headers : 
+                    fetch("/power/" + _id, {headers : 
                         { 
                           'Content-Type': 'application/json',
                           'Accept': 'application/json'
@@ -84,7 +83,7 @@ class Power extends React.Component {
                 </div>
             </div>
             <div className="row">
-                <TimeSerieCard name="Puissance totale consommée" seriename="Power" valuekey={"power"} params={{serieName: "Puissance", yName: "Puissance (en W)"}} baseURL={this.context + "/"}/>
+                <TimeSerieCard name="Puissance totale consommée" seriename="Power" valuekey={"power"} params={{serieName: "Puissance", yName: "Puissance (en W)"}} baseURL={"/"}/>
             </div>
             <div className="row">
                 {
@@ -97,7 +96,5 @@ class Power extends React.Component {
       );
     }
   }
-
-  Power.contextType = baseURL;
 
 export default Power;

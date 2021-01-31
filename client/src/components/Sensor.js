@@ -2,7 +2,6 @@ import React from "react";
 import TimeSerieCard from './TimeSerieCard';
 import ControlCard from './ControlCard';
 import '../css/App.css';
-import { baseURL } from './globals';
 
 class Sensor extends React.Component {
     constructor(props) {
@@ -14,7 +13,7 @@ class Sensor extends React.Component {
     }
 
     getSensor() {
-        fetch(this.context + "/devices/" + this.props.match.params.id + '/sensors/' + this.props.match.params.sid, {headers : 
+        fetch("/devices/" + this.props.match.params.id + '/sensors/' + this.props.match.params.sid, {headers : 
           { 
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -43,7 +42,7 @@ class Sensor extends React.Component {
   
       getDevice()
       {
-          fetch(this.context + "/devices/" + this.props.match.params.id, {headers : 
+          fetch("/devices/" + this.props.match.params.id, {headers : 
               { 
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -82,7 +81,7 @@ class Sensor extends React.Component {
         {
             case 'timeserie':
                 console.log("timeserie");
-                return <TimeSerieCard name={data.name} valuekey={data.value_key} params={data.params} baseURL={this.context + "/devices/" + this.props.match.params.id + '/sensors/' + this.props.match.params.sid + '/'}/>
+                return <TimeSerieCard name={data.name} valuekey={data.value_key} params={data.params} baseURL={"/devices/" + this.props.match.params.id + '/sensors/' + this.props.match.params.sid + '/'}/>
             default:
                 console.log("defaultr");
                 break;
@@ -112,7 +111,5 @@ class Sensor extends React.Component {
       );
     }
   }
-
-  Sensor.contextType = baseURL;
 
 export default Sensor;
