@@ -14,7 +14,7 @@ class Power extends React.Component {
 
     updateDevicesPower()
     {
-        fetch("/devices/", {headers : 
+        fetch("/api/devices/", {headers : 
             { 
               'Content-Type': 'application/json',
               'Accept': 'application/json'
@@ -27,7 +27,7 @@ class Power extends React.Component {
                 result.forEach(sensor =>
                 {
                     var _id = sensor._id;
-                    fetch("/power/" + _id, {headers : 
+                    fetch("/api/power/" + _id, {headers : 
                         { 
                           'Content-Type': 'application/json',
                           'Accept': 'application/json'
@@ -83,7 +83,7 @@ class Power extends React.Component {
                 </div>
             </div>
             <div className="row">
-                <TimeSerieCard name="Puissance totale consommée" seriename="Power" valuekey={"power"} params={{serieName: "Puissance", yName: "Puissance (en W)"}} baseURL={"/"}/>
+                <TimeSerieCard name="Puissance totale consommée" seriename="Power" valuekey={"power"} params={{serieName: "Puissance", yName: "Puissance (en W)"}} baseURL={"/api/"}/>
             </div>
             <div className="row">
                 {

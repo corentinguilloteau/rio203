@@ -13,7 +13,7 @@ class Rooms extends React.Component {
 
     componentDidMount() {
       console.log(this.context)
-      fetch("/rooms/", {headers : 
+      fetch("/api/rooms/", {headers : 
         { 
           'Content-Type': 'application/json',
           'Accept': 'application/json'

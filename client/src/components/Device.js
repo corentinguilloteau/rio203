@@ -13,7 +13,7 @@ class Device extends React.Component {
     }
 
     getSensors() {
-      fetch("/devices/" + this.props.match.params.id + '/sensors', {headers : 
+      fetch("/api/devices/" + this.props.match.params.id + '/sensors', {headers : 
         { 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -42,7 +42,7 @@ class Device extends React.Component {
 
     getDevice()
     {
-        fetch("/devices/" + this.props.match.params.id, {headers : 
+        fetch("/api/devices/" + this.props.match.params.id, {headers : 
             { 
               'Content-Type': 'application/json',
               'Accept': 'application/json'

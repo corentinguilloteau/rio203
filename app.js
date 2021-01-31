@@ -18,12 +18,7 @@ app.use(cors());
 
 app.use(function(req, res, next)
 {
-  MongoClient.connect(url, { 
-    auth: {
-      authdb: 'rio'		
-    }, 
-    useNewUrlParser: true 
-  },
+  MongoClient.connect(url,
   function(err, client) {  
     assert.equal(null, err);
     req.db = client.db("rio");
@@ -44,14 +39,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 var routerRooms = require('./routes/rooms');
-app.use('/rooms', routerRooms)
+app.use('api/rooms', routerRooms)
 
 var routerDevices = require('./routes/devices');
-app.use('/devices', routerDevices)
+app.use('api/devices', routerDevices)
 
 var routerPower = require('./routes/power');
-app.use('/power', routerPower)
+app.use('api/power', routerPower)
 
+app.get('*', function(req, res)
+{
+  res.sendFile(path.resolve(__dirname, 'client/build/index.html'))
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

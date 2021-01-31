@@ -13,7 +13,7 @@ class Sensor extends React.Component {
     }
 
     getSensor() {
-        fetch("/devices/" + this.props.match.params.id + '/sensors/' + this.props.match.params.sid, {headers : 
+        fetch("/api/devices/" + this.props.match.params.id + '/sensors/' + this.props.match.params.sid, {headers : 
           { 
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -42,7 +42,7 @@ class Sensor extends React.Component {
   
       getDevice()
       {
-          fetch("/devices/" + this.props.match.params.id, {headers : 
+          fetch("/api/devices/" + this.props.match.params.id, {headers : 
               { 
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -81,7 +81,7 @@ class Sensor extends React.Component {
         {
             case 'timeserie':
                 console.log("timeserie");
-                return <TimeSerieCard name={data.name} valuekey={data.value_key} params={data.params} baseURL={"/devices/" + this.props.match.params.id + '/sensors/' + this.props.match.params.sid + '/'}/>
+                return <TimeSerieCard name={data.name} valuekey={data.value_key} params={data.params} baseURL={"/api/devices/" + this.props.match.params.id + '/sensors/' + this.props.match.params.sid + '/'}/>
             default:
                 console.log("defaultr");
                 break;
