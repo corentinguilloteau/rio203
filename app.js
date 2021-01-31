@@ -10,7 +10,7 @@ const assert = require('assert');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-var url = 'mongodb://dashboard:dashboard@10.189.164.34:27017/rio';
+var url = process.env.DB_URL || 'mongodb://dashboard:dashboard@10.189.164.34:27017/rio';
 
 var app = express();
 
