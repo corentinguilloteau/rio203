@@ -26,6 +26,16 @@ app.use(function(req, res, next)
   });
 })
 
+
+var routerRooms = require('./routes/rooms');
+app.use('/api/rooms', routerRooms)
+
+var routerDevices = require('./routes/devices');
+app.use('/api/devices', routerDevices)
+
+var routerPower = require('./routes/power');
+app.use('/api/power', routerPower)
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -38,14 +48,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var routerRooms = require('./routes/rooms');
-app.use('api/rooms', routerRooms)
 
-var routerDevices = require('./routes/devices');
-app.use('api/devices', routerDevices)
-
-var routerPower = require('./routes/power');
-app.use('api/power', routerPower)
 
 app.get('*', function(req, res)
 {
