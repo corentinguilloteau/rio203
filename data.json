@@ -1,0 +1,27 @@
+{
+    <deviceid>: {
+        type: <telemetry|power>,
+        sensors: {
+            <sensorid1>: {
+                value: <value>
+            },
+            <sensorid2>: {
+                value: <value>
+            },
+            ...
+        }
+    },
+    ...
+}
+
+Pour type=="telemetry":
+    sensorid==0 (température)
+        value: <température en °C>
+    sensorid==1 (humidité)
+        value: <humidité (unité ?)>
+    sensorid==2 (gaz)
+        value: <gaz (unité ?)>
+    
+Pour type=="power":
+    sensorid==0 (puissance)
+        value: <puissance en W>

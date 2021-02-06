@@ -1,0 +1,29 @@
+{
+    <deviceid>: {
+        type: "state",
+        devicestate:
+        [
+            <cmd1>: <value>,
+            <cmd2>: <value,
+            ...
+        ]
+        sensors: {
+            <sensorid1>: [
+                <cmd1>: <value>,
+                <cmd2>: <value,
+                ...
+            ],
+            ...
+        }
+    },
+    ...
+}
+
+
+Pour type==state:
+    sensorid==3 (lumière)
+        "status": boolean
+        "setpoint": int 
+    sensorid==4 (portail de garage fictif)
+        "status": <"open"|"close"|"middle">
+        "movement": <"opening"|"closing"|"static">

@@ -8,7 +8,10 @@ class Sensor extends React.Component {
         super(props);
         this.state = {
             device: { name: "" },
-            sensor: { data: []}
+            sensor: { data: [[]],
+              stateType: [[]],
+              state: [[]]
+            }
         };
     }
 
@@ -21,7 +24,9 @@ class Sensor extends React.Component {
         })
           .then((res) => {return res.json()})
           .then(
+            
             (result) => {
+              console.log(result)
               this.setState({
                 isLoaded: true,
                 sensor: result
@@ -88,6 +93,13 @@ class Sensor extends React.Component {
         }
     }
 
+    getControlCard(){
+      if(this.state.sensor.stateType.length > 0)
+       return <ControlCard states={this.state.sensor.stateType} sensor={this.state.sensor.state} currentLocation={"/api/devices/" + this.props.match.params.id + '/sensors/' + this.props.match.params.sid}/>
+      else
+        return;
+    }
+
     render() {
 
         console.log(this.state.sensor)
@@ -99,9 +111,9 @@ class Sensor extends React.Component {
                 </div>
             </div>
             <div className="row">
-                <ControlCard />
+                {this. getControlCard()}
                 {
-                    this.state.sensor.data.map((data) => {
+                    this.state.sensor.data[0].map((data) => {
                         return this.switchComponents(data)
                     })
                 }

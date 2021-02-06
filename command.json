@@ -1,0 +1,30 @@
+{
+    <deviceid>: {
+        gcloudid: <id>,
+        type: "command",
+        devicecommand:
+        [
+            <cmd1>: <value>,
+            <cmd2>: <value,
+            ...
+        ]
+        sensors: {
+            <sensorid1>: [
+                <cmd1>: <value>,
+                <cmd2>: <value,
+                ...
+            ],
+            ...
+        }
+    },
+    ...
+}
+
+Commandes pour la lumière, sensorid=3
+Commandes:
+    state: <true|false>
+    setpoint: int
+
+Commandes fictive pour un portail de garage, sensorid=4
+Commande:
+    cmd: <"open"|"close"|"halt">
