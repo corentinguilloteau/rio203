@@ -19,11 +19,11 @@ const createJwt = (projectId, privateKeyFile, algorithm) => {
 };
 // [END iot_mqtt_jwt]
 
-const deviceId = `test-client`;
+const deviceId = `test`;
 const registryId = `on-premise`;
 const region = `europe-west1`;
 const algorithm = `RS256`;
-const privateKeyFile = `./private.pem`;
+const privateKeyFile = `./private.key`;
 const mqttBridgeHostname = `mqtt.googleapis.com`;
 const mqttBridgePort = 8883;
 const messageType = `events`;
@@ -104,38 +104,6 @@ client.on('message', (topic, message) => {
 client.on('packetsend', () => {
   // Note: logging packet send is very verbose
 });
-
-const {PubSub} = require('@google-cloud/pubsub');
-
-// Creates a client; cache this for further use
-const pubSubClient = new PubSub('rio203');
-
-function listenForMessages() {
-  // References an existing subscription
-  const subscription = pubSubClient.subscription('projects/rio203/subscriptions/data');
-
-  // Create an event handler to handle messages
-  let messageCount = 0;
-  const messageHandler = message => {
-    console.log(`Received message ${message.id}:`);
-    console.log(`\tData: ${message.data}`);
-    console.log(`\tAttributes: ${message.attributes}`);
-    messageCount += 1;
-
-    // "Ack" (acknowledge receipt of) the message
-    message.ack();
-  };
-
-  // Listen for new messages until timeout is hit
-  subscription.on('message', messageHandler);
-
-  setTimeout(() => {
-    subscription.removeListener('message', messageHandler);
-    console.log(`${messageCount} message(s) received.`);
-  }, 60 * 1000);
-}
-
-listenForMessages();
 
 // Once all of the messages have been published, the connection to Google Cloud
 // IoT will be closed and the process will exit. See the publishAsync method.

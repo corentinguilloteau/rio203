@@ -4,6 +4,7 @@ const {ObjectId} = require('mongodb');
 const {readFileSync} = require('fs');
 const jwt = require('jsonwebtoken');
 const mqtt = require('mqtt');
+const path = require('path')
 
 // [START iot_mqtt_jwt]
 const createJwt = (projectId, privateKeyFile, algorithm) => {
@@ -20,11 +21,11 @@ const createJwt = (projectId, privateKeyFile, algorithm) => {
     return jwt.sign(token, privateKey, {algorithm: algorithm});
 };
 
-const deviceId = `test-client`;
-const registryId = `on-premise`;
+const deviceId = `commander`;
+const registryId = `command`;
 const region = `europe-west1`;
 const algorithm = `RS256`;
-const privateKeyFile = `./private.pem`;
+const privateKeyFile = path.join(__dirname, '../../commander.key');
 const mqttBridgeHostname = `mqtt.googleapis.com`;
 const mqttBridgePort = 8883;
 const messageType = `events`;
@@ -72,11 +73,28 @@ router.get('/:sid', function(req, res, next) {
 let client;
 const mqttTopic = `/devices/${deviceId}/${messageType}`;
 
+const connect = () => {
+
+    const connectionArgs = {
+        host: mqttBridgeHostname,
+        port: mqttBridgePort,
+        clientId: mqttClientId,
+        username: 'unused',
+        password: createJwt(projectId, privateKeyFile, algorithm),
+        protocol: 'mqtts',
+        secureProtocol: 'TLSv1_2_method',
+    };
+
+    client = mqtt.connect(connectionArgs);
+}
+
+connect();
+
 const publishCommands = () =>
 {
     while(fifo.length > 0)
     {
-        var commmand = fifo.shift();
+        var command = fifo.shift();
 
         client.publish(`/devices/${deviceId}/events`, command, {qos: 1}, (err) =>
         {
@@ -103,25 +121,7 @@ client.on('close', () => {
   });
 
 
-const connect = () => {
 
-    const connectionArgs = {
-        host: mqttBridgeHostname,
-        port: mqttBridgePort,
-        clientId: mqttClientId,
-        username: 'unused',
-        password: createJwt(projectId, privateKeyFile, algorithm),
-        protocol: 'mqtts',
-        secureProtocol: 'TLSv1_2_method',
-    };
-
-    client = mqtt.connect(connectionArgs);
-}
-
-router.use(function(req, res, next)
-{
-    connect();   
-})
 
 router.put('/:sid', function(req, res, next) {
     var command = {}
@@ -133,11 +133,11 @@ router.put('/:sid', function(req, res, next) {
         .toArray(function(err, quer)
         {   
     
-            command[req.params.id] = {
+            command = {
                 gcloudid: quer[0].gcid,
                 type: "command",
-                devicecommand: {},
-                sensors:{}
+                deviceID: req.params.id,
+                sensorID: req.params.sid,
             }
 
             req.db.collection('devices').aggregate(
@@ -155,12 +155,10 @@ router.put('/:sid', function(req, res, next) {
                 {   
                     console.log(quer)
             
-                    command[req.params.id].sensors[req.params.sid] = {
-        
-                    }
-        
-                    command[req.params.id].sensors[req.params.sid][quer[req.body.index]] = req.body.value;
-        
+                    command.command = quer[0].stateType[req.body.index].name;
+                    command.value = req.body.value;
+
+                    console.log(command)
                     fifo.push(JSON.stringify(command));
 
                     if(connected)
