@@ -51,7 +51,7 @@ exports.helloPubSub = (event, context) => {
                             sensor: parseInt(Object.keys(m.sensors)[i].toString()),
                             type: getType(parseInt(Object.keys(m.sensors)[i].toString())),
                             value: s.value,
-                            timestamp: Math.floor(Date.now() / 1000)
+                            timestamp: Math.floor(Date.now())
                         }
                     )
                 }
@@ -63,7 +63,7 @@ exports.helloPubSub = (event, context) => {
                         "_id": new ObjectId(),
                         device: ObjectId(Object.keys(message)[i]),
                         value: m.sensor[0].value,
-                        timestamp: Math.floor(Date.now() / 1000)
+                        timestamp: Math.floor(Date.now())
                     }
                 )
             }

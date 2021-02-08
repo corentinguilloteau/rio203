@@ -34,7 +34,7 @@ exports.helloPubSub = (event, context) => {
                     var update = { $set : {} };
                     update.$set['state.' + Object.keys(m.devicestate)[j]] = Object.values(m.devicestate)[j];
 
-                    client.collection("devices").update(
+                    db.collection("devices").updateOne(
                         { "_id": ObjectId(Object.keys(message)[i]) },
                         update
                     )
@@ -48,10 +48,10 @@ exports.helloPubSub = (event, context) => {
                     for(var j = 0; j < Object.keys(s).length; j++)
                     {
                         var update = { $set : {} };
-                        update.$set['sensors.$[' + sensorID + "].state." + Object.keys(s)[j]] = Object.values(s)[j];
+                        update.$set['sensors.$.state.' + Object.keys(s)[j]] = Object.values(s)[j];
 
-                        client.collection("devices").update(
-                            { "_id": ObjectId(Object.keys(message)[i]) },
+                        db.collection("devices").updateOne(
+                            { "_id": ObjectId(Object.keys(message)[i]), "sensors.id": parseInt(sensorID) },
                             update
                         )
                     } 

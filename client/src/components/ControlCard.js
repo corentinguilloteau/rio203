@@ -19,7 +19,7 @@ class ControlCard extends React.Component {
                 console.log("timeserie");
                 return (
                     <div class="form-group mb-3">           
-                        <input index={idx} type="checkbox" class="btn-check" id={"state" + idx} readOnly={!state.editable} onChange={this.handleChange} defaultValue={this.props.sensor[state.name] ? "checked" : ""}/> 
+                        <input index={idx} type="checkbox" class="btn-check" id={"state" + idx} readOnly={!state.editable} onChange={this.handleChange} defaultChecked={this.props.sensor[state.name] ? "checked" : ""}/> 
                         <label htmlFor={"state" + idx} className="btn btn-outline-primary">{state.displayedname}</label>               
                     </div>)   
             case 'range':

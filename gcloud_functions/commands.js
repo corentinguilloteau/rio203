@@ -7,7 +7,7 @@
 const cloudRegion = 'europe-west1';
 const deviceId = 'dashboard';
 const projectId = 'rio203';
-const registryId = 'on-premise';
+const registryId = 'fit-iot';
 
 const MongoClient = require('mongodb').MongoClient;
 const {ObjectId} = require('mongodb');

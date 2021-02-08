@@ -117,7 +117,8 @@ client.on('connect', success => {
 
 client.on('close', () => {
     console.log('MQTT client closed');
-    connected = false;
+    if(connected == true)
+        connected = false;
   });
 
 
@@ -167,7 +168,7 @@ router.put('/:sid', function(req, res, next) {
                     }
                     else
                     {
-                        connect();
+                        client.reconnect();
                     }   
 
                     res.status(200);

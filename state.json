@@ -19,6 +19,24 @@
     ...
 }
 
+{
+    "601336d78f2aee6dd20e92f4": {
+        "type": "state",
+        "devicestate":
+        {
+            "status": "on"
+        },
+        "sensors": {
+            "0": {
+                "status": "on"
+            },
+            "3": {
+                "status": false,
+                "setpoint": 56
+            }
+        }
+    }
+}   
 
 Pour type==state:
     sensorid==3 (lumière)
