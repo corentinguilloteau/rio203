@@ -132,8 +132,8 @@ function refreshToken()
         };
         client = mqtt.connect(connectionArgs);
 
-        client.on('close', closeFunction());
-        client.on('connect', connectFunction());
+        client.on('close', closeFunction);
+        client.on('connect', connectFunction);
     }
 }
 
