@@ -72,6 +72,25 @@ router.get('/:sid', function(req, res, next) {
 
 let client;
 const mqttTopic = `/devices/${deviceId}/${messageType}`;
+var iatTime;
+
+const connectFunction = (success) => {
+    console.log('Connect to MQTT');
+    if (!success) {
+        console.log('Client not connected...');
+    }
+    else
+    {
+        connected = true;
+        publishCommands();
+    }
+}
+
+const closeFunction = () => {
+    console.log('MQTT client closed');
+    if(connected == true)
+        connected = false;
+  }
 
 const connect = () => {
 
@@ -85,8 +104,40 @@ const connect = () => {
         secureProtocol: 'TLSv1_2_method',
     };
 
+    iatTime = parseInt(Date.now() / 1000);
+
+    refreshToken();
+
     client = mqtt.connect(connectionArgs);
+
+    client.on('close', closeFunction);
+    client.on('connect', connectFunction);
 }
+
+function refreshToken()
+{
+    const secsFromIssue = parseInt(Date.now() / 1000) - iatTime;
+    if (secsFromIssue > 60) {
+        iatTime = parseInt(Date.now() / 1000);
+        console.log(`\tRefreshing token after ${secsFromIssue} seconds.`);
+
+        const connectionArgs = {
+            host: mqttBridgeHostname,
+            port: mqttBridgePort,
+            clientId: mqttClientId,
+            username: 'unused',
+            password: createJwt(projectId, privateKeyFile, algorithm),
+            protocol: 'mqtts',
+            secureProtocol: 'TLSv1_2_method',
+        };
+        client = mqtt.connect(connectionArgs);
+
+        client.on('close', closeFunction());
+        client.on('connect', connectFunction());
+    }
+}
+
+setInterval(refreshToken, 1000)
 
 connect();
 
@@ -102,26 +153,6 @@ const publishCommands = () =>
         });
     }
 }
-
-client.on('connect', success => {
-    console.log('Connect to MQTT');
-    if (!success) {
-        console.log('Client not connected...');
-    }
-    else
-    {
-        connected = true;
-        publishCommands();
-    }
-});
-
-client.on('close', () => {
-    console.log('MQTT client closed');
-    if(connected == true)
-        connected = false;
-  });
-
-
 
 
 router.put('/:sid', function(req, res, next) {
@@ -162,14 +193,7 @@ router.put('/:sid', function(req, res, next) {
                     console.log(command)
                     fifo.push(JSON.stringify(command));
 
-                    if(connected)
-                    {
-                        publishCommands();
-                    }
-                    else
-                    {
-                        client.reconnect();
-                    }   
+                    publishCommands();
 
                     res.status(200);
                     res.send();
@@ -177,6 +201,8 @@ router.put('/:sid', function(req, res, next) {
 
         });
 })
+
+
 
 router.get('/:sid/:data', function(req, res, next) {
     req.db.collection('data').aggregate([

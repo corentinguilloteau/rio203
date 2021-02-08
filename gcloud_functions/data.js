@@ -58,11 +58,11 @@ exports.helloPubSub = (event, context) => {
             }
             else if(m.type == "power")
             {
-                db.collection('data').insertOne(
+                db.collection('power').insertOne(
                     {
                         "_id": new ObjectId(),
                         device: ObjectId(Object.keys(message)[i]),
-                        value: m.sensor[0].value,
+                        value: Object.values(m.sensors)[0].value,
                         timestamp: Math.floor(Date.now())
                     }
                 )

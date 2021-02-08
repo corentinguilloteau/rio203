@@ -16,10 +16,10 @@
 
 {
     "601336d78f2aee6dd20e92f4": {
-        "type": "telemetry",
+        "type": "power",
         "sensors": {
             "0": {
-                "value": 36
+                "value": 54
             }
         }
     }
