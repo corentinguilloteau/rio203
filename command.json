@@ -3,17 +3,17 @@
         gcloudid: <id>,
         type: "command",
         devicecommand:
-        [
+        {
             <cmd1>: <value>,
             <cmd2>: <value,
             ...
-        ]
+        }
         sensors: {
-            <sensorid1>: [
+            <sensorid1>: {
                 <cmd1>: <value>,
                 <cmd2>: <value,
                 ...
-            ],
+            },
             ...
         }
     },

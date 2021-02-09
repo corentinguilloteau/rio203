@@ -39,7 +39,8 @@ class Power extends React.Component {
                             console.log(result)
                             this.setState(prevState => {
                                 let devicePower = Object.assign([], prevState.devicePower);
-                                devicePower[_id] = {id: _id, name: sensor.name, power: result[0].power}
+                                if(result.length > 0)
+                                  devicePower[_id] = {id: _id, name: sensor.name, power: result[0].power}
                                 return {devicePower}
                               });
                           },
